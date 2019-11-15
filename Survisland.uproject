@@ -1,0 +1,33 @@
+{
+	"FileVersion": 3,
+	"EngineAssociation": "4.23",
+	"Category": "",
+	"Description": "",
+	"Modules": [
+		{
+			"Name": "Survisland",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"AdditionalDependencies": [
+				"Engine",
+				"CoreUObject",
+				"UMG"
+			]
+		}
+	],
+	"Plugins": [
+		{
+			"Name": "SnapSystem",
+			"Enabled": true,
+			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/content/fa834687594944f5aafe2be8b44ad3f1"
+		},
+		{
+			"Name": "SaveExtension",
+			"Enabled": true,
+			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/content/91084f43b68047ac8da6fc88a7467936"
+		}
+	],
+	"TargetPlatforms": [
+		"WindowsNoEditor"
+	]
+}
