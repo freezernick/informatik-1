@@ -9,14 +9,6 @@
 #include "Blueprint/UserWidget.h"
 #include "Survisland.h"
 
-void USurvislandGI::Init()
-{
-    if(!WITH_EDITOR) // we only want to show the main menu at runtime
-    {
-        AddMainMenu();
-    }
-}
-
 bool USurvislandGI::AddMainMenu()
 {
     if(MainMenu)
