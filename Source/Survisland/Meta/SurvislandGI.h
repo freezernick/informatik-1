@@ -19,8 +19,6 @@ class SURVISLAND_API USurvislandGI : public UGameInstance
 
 public:
 
-	void Init();
-
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<USurvislandSave> SaveGameObject;
 
