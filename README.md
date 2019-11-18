@@ -1,3 +1,6 @@
+Auch verfügbar auf https://survisland.de/log
+
+
 # Protokoll 'Survisland'
 
 *Informatik-Projekt von Jakob Wagner und Nick Lamprecht*
