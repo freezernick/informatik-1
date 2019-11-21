@@ -21,6 +21,18 @@ enum class ESettingsType : uint8
 };
 
 /**
+ * The name we want to show for the user for a specific index
+ */
+UENUM(BlueprintType)
+enum class ESettingsLevel : uint8
+{
+	Low,
+	Medium,
+	High,
+	Epic
+};
+
+/**
  * Native Class - Use Blueprint instead
  */
 UCLASS()
