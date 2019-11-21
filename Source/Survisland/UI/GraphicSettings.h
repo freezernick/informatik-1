@@ -48,4 +48,19 @@ class SURVISLAND_API UGraphicSettings : public UUserWidget
 	 */
 	UFUNCTION(BlueprintCallable)
 	int32 UpdateIndex(ESettingsType Type, int32 Index);
+
+	/**
+	 * Gets the current index of the selected settings type
+	 * @param Type The settings group of which the index should be returned
+	 * @return The current Index. 0-3 if it's successful, -1 if it faied
+	 */
+	UFUNCTION(BlueprintPure)
+	int32 GetIndex(ESettingsType Type);
+
+	/**
+	 * Gets the command variable of the selected console command
+	 * @param Type The settings group of which command variable should be returned
+	 * @return The command variable
+	 */
+	IConsoleVariable* GetConsoleVar(ESettingsType Type);
 };
