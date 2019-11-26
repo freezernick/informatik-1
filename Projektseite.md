@@ -16,10 +16,10 @@ Die Werte sind hier beispielhaft und werden sich im Laufe der Entwicklung noch h
 
 Wenn das Spiel gestartet wird, öffnet sich zuallererst ein kleines Level, in dem sich der Spieler selbst nicht bewegen darf. Es dient lediglich dazu, dass wir einen abgeschirmten Bereich haben, wo dem Spieler ein Menü angezeigt wird, in dem er die Grafikeinstellungen anpassen kann.
 
-![](https://survisland.de/assets/menucam.png)   
+![](images/showcase/menucam.png)   
 *Die linke Kamera ist die Spielfigur im Menü-Level*
 
-![](https://survisland.de/assets/Uploads/1281f0a421/mainmenu.png)   
+![](images/showcase/mainmenu.png)   
 *Das Hauptmenü*
 
 
@@ -39,7 +39,7 @@ Die eigentliche Umgebung mit den Städten und Wäldern ist in 4 Level aufgeteilt
 Der erste Buchstabe ist der x-Index des Levels und der zweite der y-Index. Wir haben Buchstaben genommen um mit kürzeren Namen eine größere Map erstellen zu können (26² anstatt 10² Maps bei einem Index pro Achse). Darüber hinaus haben wir nicht bei `A` angefangen, damit wir ggf. noch Maps nach vorne einschieben können, ohne negative Indizes zu verwenden oder alle Sublevel umbenennen zu müssen.
 Diese vier Sublevels sind alle etwa 1km² groß und werden abhängig von der Position des Spielers geladen. Befindet der Spieler sich an der markierten Position (rot) kann der schraffierte Bereich entladen werden und wir sparen so Ressourcen auf dem Computer des Nutzers.
 
-![](https://survisland.de/assets/Uploads/composition.png?vid=3)   
+![](images/showcase/composition.png)   
 *Die Minimap des WorldComposition-Tools*
 
 
@@ -58,7 +58,7 @@ Der Spieler kann sich natürlich innerhalb der Map bewegen. Diese Funktionalitä
 
 #### Bedürfnisse
 
-![](https://survisland.de/assets/status.png)   
+![](images/showcase/status.png)   
 *Statusleisten des Spielers*
 
 Der Spieler hat einen begrenzten Healthpool (rot) von 100 Hitpoints (HP). Sowohl Treffer durch gegnerische NPCs, als auch Hunger und Durst können dem Spieler HP abziehen.
@@ -67,7 +67,7 @@ Wird ein Wert null, wird pro Sekunde 1 HP abgezogen. So werden dem Spieler maxim
 
 #### Inventar
 
-![](https://survisland.de/assets/inventart.png)   
+![](images/showcase/inventar.png)   
 *Das Inventar*
 
 Der Spieler besitzt ein Inventar mit einem Maximalgewicht, das nicht überschritten werden kann. Dies haben wir mithilfe eines ActorComponents realisiert, der zu dem Character-Blueprints des Spielers hinzugefügt wird. Das Gewichtslimit wird in Grau als eigene Statusleiste angezeigt.
@@ -82,14 +82,14 @@ Die Items sind so lange sie in der Map sind ein eigener Actor mit einem Würfel 
 
 Darüber hinaus passen die Farben zu denen der Statusleiste des Spielers.
 
-![](https://survisland.de/assets/ZxtFOjAHY0.gif?vid=4)   
+![](images/showcase/items.gif)   
 *Alle Items nebeneinander*
 
 Um das Modell der Items befinden sich zwei unterschiedlich große Boxen. Die größere hat ein OnOverlap-Event, bei dem wir überprüfen, ob sich der Spieler innerhalb dieser Box befindet. Erst dann überprüfen wir ob der Spieler auch das Item bzw. die kleinere Box anschaut.
 Da wird diese Sichtkontrolle über das Event Tick machen, also jeden Frame aufrufen, haben wir die Bedingung der Nähe gesetzt.
 Bei etwa 120 Items auf ~1km² der eigentlichen bespielbaren Fläche ist die Wahrscheinlichkeit sehr hoch, dass sich der Spieler nur in der Nähe eines Items, wenn überhaupt, befindet. Bei einer Framerate von 30 FPS haben wir so 3570 unnötige Funktionsaufrufe gespart. Bei 60 FPS sind es etwa 7140.
 
-![](https://survisland.de/assets/Uploads/itemboxen.png?vid=3)    
+![](images/showcase/itemboxen.png)    
 *Ein Item mit sichtbaren Kollisionsboxen*
 
 Die Kontrolle, ob der Spieler ein Item anschaut, ist dabei auch sehr simpel:
@@ -97,7 +97,7 @@ Wir nehmen den Richtungsvektor der Kamera des Spielers bzw. ein Vielfaches diese
 
 ## KI-Gegner / NPC
 
-![](https://survisland.de/assets/Uploads/ai.png?vid=3)
+![](images/showcase/ai.png)
 *Zwei NPCs*
 
 Bei unserer KI unterscheiden wir zwischen den Stadt-NPCs und den Wald NPCs:
@@ -108,12 +108,12 @@ Bei unserer KI unterscheiden wir zwischen den Stadt-NPCs und den Wald NPCs:
 Jeder NPC besteht dabei wie der Spieler aus einem Pawn, in diesem Fall auch ein Character, und einem Controller.
 Jetzt handelt es sich allerdings um ein AI-Controller. Die Hauptlogik der KI wird mithilfe von den AI-Blackboards, einer Sonderform von Blueprints, festgelegt. Mit diesem Blueprint lassen sich verschiedene Zustände der KI festlegen und die Konditionen, die erfüllt sein müssen, um diese Zustände zu erreichen.
 
-![](https://survisland.de/assets/Uploads/typ2.png?vid=3)
+![](images/showcase/typ2.png)
 *Blackboard-Blueprint von Typ 2*
 
 Die Hauptaufgabe für den KI-Typen 1 ist es, zu überprüfen, ob der Spieler sich in Sichtweite befindet. Wenn dies so ist, wird die Kondition CanSeePlayer gesetzt, sodass die KI nun in den Status der Verfolgung gelangen kann. Sie versucht jetzt den Spieler in Schussweite zubringen. Wenn dies gelingt, wird der Status zum Angriffsmodus geändert, in dem nur in einem festen Intervall auf den Spieler gefeuert wird.
 
-![](https://survisland.de/assets/Uploads/aispawner.png?vid=3)   
+![](images/showcase/aispawner.png)   
 *Der Spawner für Typ 2*   
 
 
@@ -141,7 +141,7 @@ Deshalb verwenden wir NavigationInvokers. Die werden zum Pawn des NPCs hinzugef�
 Obwohl Spieler und NPCs eine Waffe mit sich herumtragen, kommen diese nie zum Einsatz: Für das Kampfsystem verwenden wir Line-Traces (auch Raycasting / Raytracing), also eine einfache virtuelle Gerade zwischen zwei Punkten. Der Startpunkt ist bei uns entweder die Kamera des Spielers oder der Kopf eines NPCs. Endpunkt ist der Richtungsvektor der Kamera bzw. des Kopfes * 5000uu (UnrealUnits; 1uu = 1cm). Das ist unsere simulierte Reichweite der Waffe. Wir ziehen also bei jedem Schuss eine Gerade und schauen, ob die Gerade einen Gegener schneidet. Wenn dem so ist, wird das Damage-Event der UnrealEngine ausgelöst, das wir im Blueprint des Spielers und der NPCs implementiert haben.
 Da wir keine Effekte oder ähnliches beim Schießen anzeigen, benutzen wir eine Option, die eigentlich zum Debuggen gedacht ist: Wir lassen uns die Line-Traces anzeigen. So bekommt der Spieler ein Trefferfeedback und kann auch nachvollziehen, wie er zum Beispiel von der KI getroffen wurde.
 
-![](https://survisland.de/assets/Uploads/Qc0wibatZu.gif?vid=3)   
+![](images/showcase/fight.gif)   
 *Ein Kampf*   
 
 ## Weiteres
@@ -176,14 +176,14 @@ Game ist hierbei das komplette Spiel in der genannten Version und Patch ist ledi
 *Beispiel:*
 0.1.0 Game + 0.1.1 Patch = 0.1.1 Game
 
-![](https://survisland.de/assets/Uploads/downloads.png?vid=3)   
+![](images/showcase/downloads.png)   
 *Die Download-Seite*   
 
 *Tipp:* Mit https://downloads.survisland.de/latest/plattform kann stets die aktuellste Version des Spiels runtergeladen werden. 'plattform' muss hier mit dem passenden Kürzel ersetzt werden (s. Tabelle unten).
 
 Der Download umfasst ein .zip-Archiv mit dem Namen 'Survisland-Version-Plattform'. Das kann einfach entpackt werden (z.B. mit dem Windows-Explorer). Im Ordner 'Survisland' befindet sich die 'Survisland.exe', über die das Spiel gestartet werden kann.
 
-![](https://survisland.de/assets/Uploads/folder.png?vid=3)   
+![](images/showcase/folder.png)   
 *Survisland.exe im Windows-Explorer*   
    
 #### Plattformen
@@ -205,8 +205,8 @@ Der Download eines Patches umfasst ebenfalls ein .zip-Archiv. Der Name ist dabei
 
 Zum Schluss noch ein paar Impressionen aus dem Spiel
 
-![](https://survisland.de/assets/Survisland_0DFuZQsbeR.png?vid=4)
-![](https://survisland.de/assets/Survisland_2FgTxHMUgK.png?vid=4)
-![](https://survisland.de/assets/Survisland_8lQ2u7VMdm.png?vid=4)
-![](https://survisland.de/assets/Survisland_cD39CEDOOY.png?vid=4)
-![](https://survisland.de/assets/Survisland_NYQVETORwK.png?vid=4)
+![](images/showcase/game1.png)
+![](images/showcase/game2.png)
+![](images/showcase/game3.png)
+![](images/showcase/game4.png)
+![](images/showcase/game5.png)
