@@ -36,22 +36,28 @@ public:
 	FColor WallColor;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UStaticMesh* StairMesh;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UStaticMesh* FloorMesh;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UStaticMesh* WindowMesh;
+
+	/* How many wall meshes should be places between two windows */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 WindowSpacing;
+
+	/* Side of the building where the door should be placed */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Door")
 	int32 EntrancePosition;
 
+	/* At which instance index the door mesh should be placed */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Door")
 	int32 EntranceOffset;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Door")
 	UStaticMesh* DoorMesh;
-
-	UPROPERTY(VisibleDefaultsOnly)
-	UStaticMeshComponent* DoorComponent;
-
-	UPROPERTY(VisibleDefaultsOnly)
-	UInstancedStaticMeshComponent* MeshComponent;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UStaticMesh* CustomMesh;
@@ -71,6 +77,7 @@ protected:
 
 	UPROPERTY(SaveGame)
 	TArray<FTransform> SavedTransforms;
+
 public:
 
 	// Functions
@@ -105,5 +112,22 @@ public:
 	 */
 	UFUNCTION(BlueprintCallable)
 	void ClearSavedBuilding();
+
+	// Components
+
+	UPROPERTY(VisibleDefaultsOnly)
+	UStaticMeshComponent* DoorComponent;
+
+	UPROPERTY(VisibleDefaultsOnly)
+	UInstancedStaticMeshComponent* WindowComponent;
+
+	UPROPERTY(VisibleDefaultsOnly)
+	UInstancedStaticMeshComponent* MeshComponent;
+
+	UPROPERTY(VisibleDefaultsOnly)
+	UInstancedStaticMeshComponent* FloorComponent;
+
+	UPROPERTY(VisibleDefaultsOnly)
+	UInstancedStaticMeshComponent* StairsComponent;
 
 };
