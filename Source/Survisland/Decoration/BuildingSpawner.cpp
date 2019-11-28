@@ -26,7 +26,7 @@ ABuildingSpawner::ABuildingSpawner()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
 	Width = 2;
-	Height = 1;
+	Height = 0;
 	Length = 2;
 	WallColor = FColor(120, 120, 120, 255);
 }
