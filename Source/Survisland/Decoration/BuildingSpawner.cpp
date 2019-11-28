@@ -86,6 +86,8 @@ void ABuildingSpawner::RespawnBuilding()
 void ABuildingSpawner::Clear()
 {
 	MeshComponent->ClearInstances();
+	StairsComponent->ClearInstances();
+	FloorComponent->ClearInstances();
 }
 
 void ABuildingSpawner::ClearSavedBuilding()
