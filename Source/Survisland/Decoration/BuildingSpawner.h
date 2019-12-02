@@ -7,7 +7,7 @@
 #include "BuildingSpawner.generated.h"
 
 class UStaticMesh;
-class UInstancedStaticMeshComponent;
+class UInstancedStaticWallComponent;
 
 /**
  * Native Class - Use Blueprint instead
@@ -33,7 +33,7 @@ public:
 	int32 Height;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FColor WallColor;
+	FLinearColor Color;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UStaticMesh* StairMesh;
@@ -71,6 +71,21 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool bRespawn;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UMaterialInterface* BaseMaterial;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UMaterialInstanceDynamic* FloorMaterial;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UMaterialInstanceDynamic* WallMaterial;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UMaterialInstanceDynamic* DoorMaterial;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UMaterialInstanceDynamic* WindowMaterial;
+
 protected:
 
 	UStaticMesh* MeshReference;
@@ -81,6 +96,8 @@ protected:
 public:
 
 	// Functions
+
+	void OnConstruction(const FTransform& Transform);
 
 	/**
 	 * Updated the internal mesh reference
@@ -102,7 +119,7 @@ public:
 	void RespawnBuilding();
 
 	/**
-	 * Clears all instances of the MeshComponent
+	 * Clears all instances of the WallComponent
 	 */
 	UFUNCTION(BlueprintCallable)
 	void Clear();
@@ -113,6 +130,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void ClearSavedBuilding();
 
+	UFUNCTION(BlueprintCallable)
+	void ChangeColor(FLinearColor NewColor);
+
 	// Components
 
 	UPROPERTY(VisibleDefaultsOnly)
@@ -122,7 +142,7 @@ public:
 	UInstancedStaticMeshComponent* WindowComponent;
 
 	UPROPERTY(VisibleDefaultsOnly)
-	UInstancedStaticMeshComponent* MeshComponent;
+	UInstancedStaticMeshComponent* WallComponent;
 
 	UPROPERTY(VisibleDefaultsOnly)
 	UInstancedStaticMeshComponent* FloorComponent;
