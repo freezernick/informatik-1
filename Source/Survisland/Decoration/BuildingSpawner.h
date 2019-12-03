@@ -8,6 +8,7 @@
 
 class UStaticMesh;
 class UInstancedStaticWallComponent;
+class AItemSpawnerVolume;
 
 /**
  * Native Class - Use Blueprint instead
@@ -86,12 +87,18 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UMaterialInstanceDynamic* WindowMaterial;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TSubclassOf<AItemSpawnerVolume> ItemSpawnerClass;
+
 protected:
 
 	UStaticMesh* MeshReference;
 
 	UPROPERTY(SaveGame)
 	TArray<FTransform> SavedTransforms;
+
+	UPROPERTY()
+	AItemSpawnerVolume* ItemSpawner;
 
 public:
 

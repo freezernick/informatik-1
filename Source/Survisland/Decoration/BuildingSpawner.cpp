@@ -4,6 +4,7 @@
 #include "Components/InstancedStaticMeshComponent.h"
 #include "Engine/StaticMesh.h"
 #include "Materials/MaterialInstanceDynamic.h"
+#include "Inventory/ItemSpawnerVolume.h"
 
 // Sets default values
 ABuildingSpawner::ABuildingSpawner()
@@ -44,6 +45,12 @@ ABuildingSpawner::ABuildingSpawner()
 	if(StairMesh)
 	{
 		StairsComponent->SetStaticMesh(StairMesh);
+	}
+
+	if(ItemSpawnerClass)
+	{
+		ItemSpawner = NewObject<AItemSpawnerVolume>(this, ItemSpawnerClass);
+		ItemSpawner->SetRelativeLocation(FVector(Width*400,Length*400,0));
 	}
 
 
@@ -93,6 +100,8 @@ void ABuildingSpawner::OnConstruction(const FTransform& Transform)
 	{
 		WindowMaterial->SetVectorParameterValue("Color", Color);
 	}
+
+	UpdateBuilding();
 }
 
 void ABuildingSpawner::UpdateBuilding()
@@ -128,18 +137,24 @@ void ABuildingSpawner::UpdateBuilding()
 		return;
 	}
 
-	for(int i = 0; i <= Height; i++)
+	FVector DoorLocation;
+	if(EntrancePosition == 0)
 	{
-		for(int n = 0; n <= Width; n++)
-		{
-
-		}
-
-		for(int x = 0; x <= Length; x++)
-		{
-
-		}
+		DoorLocation = FVector(EntranceOffset*400, 0, 0);
 	}
+	else if(EntrancePosition == 1)
+	{
+		DoorLocation = FVector(0, EntranceOffset*400, 0);
+	}
+	else if(EntrancePosition == 2)
+	{
+		DoorLocation = FVector(Width*400, EntranceOffset*400, 0);
+	}
+	else if(EntrancePosition == 3)
+	{
+		DoorLocation = FVector(EntranceOffset*400, Length*400, 0);
+	}
+	DoorComponent->SetRelativeLocationAndRotation(DoorLocation, FRotator(0, 0, EntrancePosition * 90));
 }
 
 void ABuildingSpawner::RespawnBuilding()
