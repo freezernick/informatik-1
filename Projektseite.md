@@ -97,7 +97,7 @@ Wir nehmen den Richtungsvektor der Kamera des Spielers bzw. ein Vielfaches diese
 
 ## KI-Gegner / NPC
 
-![](images/showcase/ai.png)
+![](images/showcase/ai.png)   
 *Zwei NPCs*
 
 Bei unserer KI unterscheiden wir zwischen den Stadt-NPCs und den Wald NPCs:
