@@ -410,3 +410,11 @@ Zum Schluss noch ein paar Impressionen aus dem Spiel
 ![](images/showcase/game3.png)
 ![](images/showcase/game4.png)
 ![](images/showcase/game5.png)
+
+
+
+---
+
+[^1]: Blueprint Variables - UnrealEngine Documentation: https://docs.unrealengine.com/en-US/Engine/Blueprints/UserGuide/Variables/index.html
+[^2]: UnrealHeaderTool - UnrealEngine Documentation: https://docs.unrealengine.com/en-US/Programming/BuildTools/UnrealHeaderTool/index.html
+[^3]: UnrealBuildTool - UnrealEngine Documentation: https://docs.unrealengine.com/en-US/Programming/BuildTools/UnrealBuildTool/index.html
