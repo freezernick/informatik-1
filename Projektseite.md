@@ -21,25 +21,7 @@ Wir verwenden die [UnrealEngine 4](https://www.unrealengine.com/en-US/what-is-un
 
 Im folgenden Diagramm werden die Möglichkeiten der komplementären Verwendung von C++ und Blueprints dargestellt. Wie in Objektorientieren Sprachen üblich, kann jede Parent-Klasse unbegrenzt viele Child-Klassen haben kann.
 
-```mermaid
-graph TD
-A[C++ Parent] --> C
-A --> B
-A --> I
-I[Einsatz in der Engine]
-B[Blueprint Parent] --> D
-D[Blueprint Child]
-D-->I
-B --> I
-C[C++ Child] --> I
-C --> F
-F[Blueprint Parent] --> G
-F-->I
-G[Blueprint Child] --> I
-K[Blueprint Parent] --> I
-K --> L
-L[Blueprint Child] --> I
-```
+![](images/mermaid.png)    
 *C++/Blueprint Relations*
 
 ## Blueprints
