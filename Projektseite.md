@@ -1,6 +1,206 @@
 Informatik-Projekt von Jakob Wagner und Nick Lamprecht    
 12g - 19/20 Stormarnschule Ahrensburg
 
+TODO: Link / Erklärung Plugins
+
+- [Modular Snap System](https://www.unrealengine.com/marketplace/en-US/slug/modular-snap-system)
+- [Save Extension](https://www.unrealengine.com/marketplace/en-US/slug/save-extension)
+
+
+
+
+## Umsetzung
+
+Anstatt für unser Projekt von Grund auf anzufangen, verwenden wir eine Game-Engine. Engines gibt es für 2D und 3D-Spiele und bieten in der Regel bereits die Implementierung einer oder mehrerer Rendering-Schnittstellen wie OpenGL oder DirectX, ein Sound- und Physiksystem. Darüberhinaus haben Engines, wenn man sie mit einer Objektorientierten Sprache verwenden kann, bereits eine vergleichsweise große Struktur an Klassen, die man dann für seine Projekte verwenden und erweitern kann.
+
+Wir verwenden die [UnrealEngine 4](https://www.unrealengine.com/en-US/what-is-unreal-engine-4) (in der Version 4.23). Man kann die Gameplayprogrammierung in C++ und der visuellen Programmiersprache der Blueprints durchführen. Dabei kann man beides verwenden, da sich beide Möglichkeiten ergänzen.
+
+<details>
+
+<summary>Mehr dazu hier</summary>
+
+Im folgenden Diagramm werden die Möglichkeiten der komplementären Verwendung von C++ und Blueprints dargestellt. Wie in Objektorientieren Sprachen üblich, kann jede Parent-Klasse unbegrenzt viele Child-Klassen haben kann.
+
+```mermaid
+graph TD
+A[C++ Parent] --> C
+A --> B
+A --> I
+I[Einsatz in der Engine]
+B[Blueprint Parent] --> D
+D[Blueprint Child]
+D-->I
+B --> I
+C[C++ Child] --> I
+C --> F
+F[Blueprint Parent] --> G
+F-->I
+G[Blueprint Child] --> I
+K[Blueprint Parent] --> I
+K --> L
+L[Blueprint Child] --> I
+```
+*C++/Blueprint Relations*
+
+## Blueprints
+Blueprints verhalten sich im Prinzip wie die meisten anderen visuellen Programmiersprachen. Es gibt Code-Blöcke, die sogenannten Nodes, die sich mit dem Execution-Pin (weiß) verbinden lassen. Startpunkt für eine Node-Kette innerhalb eines Blueprint sind die Events, die entweder von anderen Blueprints, der Engine selbst oder einer C++-Klasse ausgelöst werden können. Jedes Event hat einen Execution Pin und kann zusätzlich über Input Values verfügen.
+Außer dem Execution Pin kann man noch alle Output- und Input-Pins miteinander verbinden. Durch die verschiedenen Farben der Variablentypen[^1] lässt sich leicht die Übersicht behalten.
+Darüberhinaus lassen sich wie in C++ eigene Variablen, Funktionen und Makros erstellen.   
+![image](images/84b3d2a31690f70c497f95b1cd00b8bc/image.png)    
+*Beispielhafter einfacher Blueprint-Graph*
+
+### Sonderformen
+
+Für gewisse Features gibt es eigene Blueprintformen. 
+
+### Animation Blueprints
+---
+Animation Blueprints steuern die Animationen für Skeletal Meshes[^7]. Anstatt in einem normalen Blueprint Animationen einzeln abspielen zu lassen, können wir in einem Animation Blueprint komplexere Zusammenhänge zwischen Animationen herstellen und auch verschiedene Animationen parallel abspielen, also überblenden.
+Dazu gibt es eine eigene Graph-Variante, in der man die verschiedenen Animation-States multilateral miteinander verbinden kann und zusätzlich die Bedingungen festlegen kann, wann die States gewechselt werden können.
+Zudem können wir einige Eigenschaften der Animation an Variablen knüpfen, die Laufgeschwindigkeit des Spielers als Beispiel.   
+![image](images/59185e19724f5d4989bb3f0b13b32f77/image.png)    
+*Ausschnitt aus dem Animation-Blueprint des SurvislandCharacters*
+
+### Material Blueprints
+---
+Material Blueprints werden dafür eingesetzt, um die Eigenschaften eines Materials zu bestimmen. Mithilfe von Materials kann man beeinflussen, wie die Engine Objekte rendert. 
+Es sind nicht alle Nodes in einem Material Blueprint Graph vorhanden, sondern  nur eine kleinere Anzahl an Nodes, die ausschließlich Parameter des Materials beeinflussen können.   
+![image](images/47d0767ff7973d5d809b44a4e036a339/image.png)    
+*Unser Landscape-Material*
+
+Material Blueprints haben eine ganz eigene Art von Child-Klassen: die sogenannten Material Instances. Die Instances haben allerdings keinen eigenen Graphen, sondern lediglich eine Oberfläche in der man die im Parent markierten Parameter verändern kann.
+Der Vorteil der Verwendung von Material Instances liegt darin, dass sich alle Instances mit ihrem Parent einen einzigen Shader teilen und man somit weniger Arbeitsspeicher verbraucht. Darüber hinaus müssen wir nicht bei einer einzigen Farbänderung den Shader rekompilieren und können somit effizienter Arbeiten.   
+![image](images/a244b958334f45173db6b9dd909c96b5/image.png)     
+*Unser Master-Material (links) und eine Material Instance für unser RoadTool (rechts)*
+
+### Widget Blueprints
+---
+
+Obwohl man in der UnrealEngine das User-Interface auch mit C++ und dem Slate-System programmieren könnte, wird im Regelfall auf die Widget-Blueprints zurückgegriffen. Auch hier lassen sich Parents (ohne Design) in C++ erstellen. Im Widget-Blueprint-Editor wird dann lediglich das Design mit dem UnrealMotionGraphics-System erstellt. Das hat den Vorteil, dass UI-Designer nicht programmieren könnenn müssen. Das UMG-System eine große vorgefertigte Anzahl an Bedien- und Gestaltungselementen, die sich frei anordnen und gestalten lassen. Es lassen sich auch jederzeit neue Elemente erstellen.
+
+## UnrealEngine 4 spezifisches C++
+Im folgenden werden die neuen C++-Features der UnrealEngine beispielhaft erklärt, die für unseren Code relevant sind. So werden zum Teil nicht alle möglichen oder verwendeten Bezeicher aufgeführt. Eine vollständige Liste wird jedoch verlinkt.
+
+### Variablen
+---
+Die UnrealEngine definiert einige Variablentypen, die über das standardmäßige C++ hinausgehen.
+Hier ist eine Liste mit Variablen, die wir auch innerhalb unseres C++-Codes direkt oder indirekt verwendet haben.
+- FVector[^4], ein dreidimensionaler Vektor
+- FRotator[^5], ein Container, der die Rotation aller Achsen in Grad speichert
+- FText[^6], ein alternativer String
+
+### Makros
+---
+Alle folgenden Makros sind für das Reflection-System der Unreal Engine.
+Das UnrealHeaderTool[^2] scannt alle Header-Dateien nach diesen Makros und generiert eine `.generated.h` für jede `.h`. Mithilfe dieser Header-Datei kann die Engine den Klassen, Funktion oder Variablen, die mit diesen Makros markiert sind, erweiterte Funktionen zur Verfügung stellen.
+Für uns ist die Möglichkeit des Zugriffs auf in C++ deklarierten Variablen und Funktionen innnerhalb eines Blueprints am wichtigsten. Außerdem ist die Garbage Collection für uns von Bedeutung, da sie für uns ein Großteil des Memory-Managements abnimmt.
+
+#### UPROPERTY
+---
+```c++
+UPROPERTY(BlueprintReadWrite)
+bool bIsBlueprintExposed;
+```
+Wir verwenden das `UPROPERTY`-Makro um für Variablen die Garbage-Collection zu aktivieren und damit wir diese in unseren Blueprints verwenden können. Mit weiteren Bezeichner kann das Verhalten der Variable zusätzlich spezifiziert werden. Wir verwenden am häufigsten die folgenden Bezeichner:
+- `EditAnywhere`, das die Variable in einem Menü innerhalb der Engine verfügbar macht
+- `BlueprintReadWrite`, das erlaubt die Variable in einem Blueprint zu modifizieren
+- `BlueprintReadOnly`, das lediglich das Auslesen der Variable erlaubt
+
+Eine vollständige Liste kann hier gefunden werden: https://docs.unrealengine.com/en-US/Programming/UnrealArchitecture/Reference/Properties/#propertyspecifiers   
+Zusätzlich gibt es für `UPROPERTYs` Bezeichner für Metadaten: https://docs.unrealengine.com/en-US/Programming/UnrealArchitecture/Reference/Properties/#metadataspecifiers
+
+#### UFUNCTION
+---
+```c++
+UFUNCTION(BlueprintPure)
+int32 GenerateSomeInt();
+
+UFUNCTION(BlueprintCallble)
+void SomeCalculations(int32 SomeInputInteger);
+```
+Mit dem `UFUNCTION`-Makro lassen sich in C++ deklariert & definierte Funktion in Blueprints aufrufen. `BlueprintPure` und `BlueprintCallabe` bestimmen hierbei um welche Art von Node es sich im Blueprint handelt.
+Alle weiteren Bezeichner lassen sich hier finden: https://docs.unrealengine.com/en-US/Programming/UnrealArchitecture/Reference/Functions/#functionspecifiers   
+Auch für `UFUNCTIONs` gibt es Metadaten-Bezeichner: https://docs.unrealengine.com/en-US/Programming/UnrealArchitecture/Reference/Functions/#metadataspecifiers   
+
+![image](images/4efaf3f3b6f9dde7b00d71104c9f064f/image.png)
+
+#### USTRUCT
+---
+```c++
+USTRUCT(BlueprintType)
+struct FMyStruct
+{
+  GENERATED_BODY()
+  ...
+};
+```
+Das `USTRUCT`-Makro wird für Structs verwendet, die wir innerhalb der Engine verwenden wollen. Im Gegensatz zu den bisherigen Makros gibt es hier nur eine sehr begrenzte Anzahl an möglichen Bezeichnern, von denen wir lediglich einen verwende: `BlueprintType` macht das Struct in Blueprints verfügbar. 
+
+![image](images/bef43952f025f68f86cd6b2f7d1f83e9/image.png)
+
+#### UENUM
+---
+```c++
+UENUM(BlueprintType)
+enum class EMyEnum : uint8
+{
+  Case1 UMETA(DisplayName="Case2"),
+  Case2,
+  Case3
+};
+```
+Ähnlich wie beim `USTRUCT`-Makro sorgt das `BlueprintType` für die Verfügbarkeit in Blueprints. Durch `UMETA` lassen sich zusätzlich Metadaten für die einzelnen Enumeinträge setzen, in diesem Fall ein anderer Anzeigename.  
+Hier gibt es eine vollständige Liste an Möglichkeiten: https://docs.unrealengine.com/en-US/Programming/UnrealArchitecture/Reference/Metadata/#enummetadataspecifiers
+
+![image](images/9d66704989fffb96660f0791d71d9013/image.png)
+
+#### UCLASS
+---
+```c++
+UCLASS(Blueprintable)
+class UMyClass : public UObject
+{
+  GENERATED_BODY()
+  ...
+};
+```
+Die meisten Eigenschaften der anderen Makros gelten auch hier. Das `Blueprintable` erlaubt es der Klasse eigene BlueprintChilds zu haben.
+
+Alle Bezeichner: https://docs.unrealengine.com/en-US/Programming/UnrealArchitecture/Reference/Classes/Specifiers/index.html
+
+Alle Bezeichner für Metadaten: https://docs.unrealengine.com/en-US/Programming/UnrealArchitecture/Reference/Classes/Specifiers/#metadataspecifiers
+
+#### GENERATED_BODY()
+---
+Wie auch in einigen der oberen Beispiele schon gezeigt wurde, gibt es noch ein `GENERATED_BODY`-Makro. Dieses fügt lediglich von der Engine vorgegebenen Standardcode ein.
+
+### Build.cs & Target.cs Dateien
+---
+Die UnrealEngine ist modular aufgebaut. Das heißt, dass der Code in viele verschiedene Teilbereiche aufgeteilt ist. Jedes Spiel oder auch Plugin, das in bzw. für die UnrealEngine erstellt wird, kann ebenfalls mehrere Module enthalten. Jedes Modul braucht eine eigene Build.cs-Datei für das UnrealBuildTool[^3].
+In diesen Build.cs-Dateien werden sowohl die Ordner, die zum Modul gehören, aufgelistet, als auch die Abhängigkeiten des Moduls von anderen Modulen aufgeführt, damit später die richtigen DLLs und Moduldateien vom Compiler verlinkt werden können.
+Wir verwenden allerdings nur ein einziges Modul in unserem Projekt, importieren dafür einige Funktionen aus Engine-Modulen. [Hier ist die Build.cs von unserem Survisland-Modul.](https://gitlab.com/f2p-entertainment/other/informatik-projekte/informatik-projekt-1/blob/f29d269df3466cdb0bf1bca71eb5405a06eef39f/Source/Survisland/Survisland.Build.cs)
+
+Mit den Target.cs Dateien wird beschrieben welche Module für welche Plattform in welcher Konfiguration verfügbar gemacht bzw. verwendet werden sollen.
+Wir benötigen lediglich die Standardkonfiguration, da wir keinen plattformabhängigen oder plattformspezifischen Code geschrieben haben.
+Hier sind die Target.cs-Dateien für Survisland:  
+- [Survisland.Target.cs](https://gitlab.com/f2p-entertainment/other/informatik-projekte/informatik-projekt-1/blob/f29d269df3466cdb0bf1bca71eb5405a06eef39f/Source/Survisland.Target.cs)
+- [SurvislandEditor.Target.cs](https://gitlab.com/f2p-entertainment/other/informatik-projekte/informatik-projekt-1/blob/f29d269df3466cdb0bf1bca71eb5405a06eef39f/Source/SurvislandEditor.Target.cs)
+
+</details>
+
+Die Engine ist dabei auch eine eigene Entwicklungsumgebung für Blueprints. Für die Entwicklung mit C++ muss noch auf eine alternative Entwicklungsumgebung zurückgegriffen werden. Wir verwenden dafür [VisualStudio Code](https://code.visualstudio.com) mit einigen Erweiterungen, die die Entwicklung in C++ erst ermöglichen:
+- [C/C++](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools)
+- [C#](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp) [(für die Build.cs Dateien)](https://gitlab.com/f2p-entertainment/other/informatik-projekte/informatik-projekt-1/wikis/UnrealEngine-4#buildcs-targetcs-dateien)
+- [C++ Intellisense](https://marketplace.visualstudio.com/items?itemName=austin.code-gnu-global)
+
+
+### 3D-Modellierung
+Für Modelle, die wir nicht innerhalb der Engine mit C++ oder Geometry-Brushes erstellen, verwenden wir [3ds-Max von Autodesk](https://www.autodesk.de/products/3ds-max/overview)
+
+TODO: Bild
+
+## Das Projekt
+
 ## Spielprinzip
 
 Wie in fast allen Survival-Games geht es auch in Survisland darum sich in der Umgebung der Spielwelt Ressourcen bzw. Items zu sammeln, die es dem Spieler erlauben natürliche Gefahren wie Hunger und Durst als auch artifizielle Bedrohungen in Form von NPCs zu überwinden.
