@@ -8,8 +8,7 @@ Auch verfügbar auf https://survisland.de/log
 ## Vorwort
 
 Hier befindet sich das Stundentagebuch zu unserem Projekt.
-Im Wiki finden sich [hier](https://gitlab.com/f2p-entertainment/other/informatik-projekte/informatik-projekt-1/wikis/Technische-Umsetzung) eine Übersicht unserer verwendeten Software.
-Außerdem haben wir [hier](https://gitlab.com/f2p-entertainment/other/informatik-projekte/survisland/survisland/wikis/Terminologie-und-Erkl%C3%A4rungen) eine Liste mit Besonderheiten der Unreal Engine und einiger Terminologie angelegt, damit die Code-Beispiele nachvollziehbarer werden.
+Eine Übersicht über die verwendete Software findet sich auf der [Projektseite](Projektseite.md).
 
 Der Übersichtlichkeit wegen, haben wir hier nur ein paar Code-Beispiele genauer erklärt, um den Umgang mit UnrealEngine-Typen näherzubringen. Der meiste Code sollte verständlich genug geschrieben worden sein, dass nur knappe Kommentare innerhalb der .cpp-Dateien ausreichen sollten. Bei nicht sofort ersichtlichen Konzepten finden sich auch größere Kommentarblöcke, ggf. mit Links zur UnrealEngine Dokumentation, im Code (s. Beispiel). Kommentare in Header-Dateien sind primär für uns beim Entwickeln gedacht.
 
@@ -68,7 +67,7 @@ Genauere Hintergrundgedanken zu einigen Punkten sind im [Wiki](https://gitlab.co
 
 
 **20.August**    
-Um nun mit dem Arbeiten zu Beginnen haben wir erst die [benötigten Anwendungen](https://gitlab.com/f2p-entertainment/other/informatik-projekte/informatik-projekt-1/wikis/Technische-Umsetzung) installiert und anschließend einige, noch leere, Basisklassen angelegt und die Map 'World' erstellt.
+Um nun mit dem Arbeiten zu Beginnen haben wir erst die [benötigten Anwendungen](Projektseite.md#Umsetzung) installiert und anschließend einige, noch leere, Basisklassen angelegt und die Map 'World' erstellt.
 Darüberhinaus haben wir für Survisland eine eigene Log-Kategorie angelegt, die es uns vereinfachen soll, unseren Code zu debuggen.
 Wir haben sie in der Hauptdatei unseres Survisland-Moduls erstellt, also der `Survisland.h` bzw. `Survisland.cpp`.
 ```c++
