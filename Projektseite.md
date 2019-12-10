@@ -171,7 +171,7 @@ Die Engine ist dabei auch eine eigene Entwicklungsumgebung für Blueprints. Für
 *Visual Studio Code mit der geöffneten [BuildingSpawner.cpp](Source/Survisland/Decoration/BuildingSpawner.cpp)*   
 
 ### 3D-Modellierung
-Für Modelle, die wir nicht innerhalb der Engine mit C++ oder Geometry-Brushes erstellen, verwenden wir [3ds Max von Autodesk](https://www.autodesk.de/products/3ds-max/overview). 3ds Max ist ein vergleichsweise komplexes 3D-Modellierungs- und Animationsprogramm. Für die simplen Modelle, die wir in unserem Spiel verwenden, brauchen wir lediglich die Polygonmodellierung. 
+Für Modelle, die wir nicht innerhalb der Engine mit C++ oder Geometry-Brushes erstellen, verwenden wir [3ds Max von Autodesk](https://www.autodesk.de/products/3ds-max/overview). 3ds Max ist ein vergleichsweise komplexes 3D-Modellierungs- und Animationsprogramm. Für die simplen Modelle, die wir in unserem Spiel verwenden, brauchen wir lediglich die Polygonmodellierung. In unserem Fall reicht es, wenn wir mehrere einfache Körper (z.B. Quader) miteinander verbinden.
 
 ![](images/3dsmax.png)   
 *3ds Max mit den Meshes für den BuildingSpawner*   
