@@ -63,7 +63,7 @@ Zusätzlich haben wir eine [modifizierte Version](https://gitlab.com/f2p-enterta
 Damit wir nicht ohne Plan und Ziel mit dem Arbeiten anfangen, haben wir begonnen ein recht einfach formuliertes Konzept zu formulieren. Wir haben dabei auch nach Features und Funktionen sortiert, die unser Spiel haben sollte, und welche, die es nur haben sollte. Letztere würden wir nur versuchen umzusetzen, wenn dazu noch Zeit wäre.
 
 Wir haben uns also für ein Survival-Game entschieden, das sowohl in der Third- als auch First-Person-Sicht spielbar sein soll. Das vollständige Konzept ist hier zu finden: [Konzept.md](Konzept.md).
-Genauere Hintergrundgedanken zu einigen Punkten sind im [Wiki](https://gitlab.com/f2p-entertainment/other/informatik-projekte/informatik-projekt-1/wikis/Konzepterkl%C3%A4rung) zu finden.
+Genauere Hintergrundgedanken zu einigen Punkten sind [hier](Konzepterkl%C3%A4rung.md) zu finden.
 
 
 #### 20.August    

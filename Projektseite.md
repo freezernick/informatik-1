@@ -164,7 +164,7 @@ Hier sind die Target.cs-Dateien für Survisland:
 
 Die Engine ist dabei auch eine eigene Entwicklungsumgebung für Blueprints. Für die Entwicklung mit C++ muss noch auf eine alternative Entwicklungsumgebung zurückgegriffen werden. Wir verwenden dafür [VisualStudio Code](https://code.visualstudio.com) mit einigen Erweiterungen, die die Entwicklung in C++ erst ermöglichen:
 - [C/C++](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools)
-- [C#](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp) [(für die Build.cs Dateien)](https://gitlab.com/f2p-entertainment/other/informatik-projekte/informatik-projekt-1/wikis/UnrealEngine-4#buildcs-targetcs-dateien)
+- [C#](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp) [(für die Build.cs Dateien)](#buildcs-targetcs-dateien)
 - [C++ Intellisense](https://marketplace.visualstudio.com/items?itemName=austin.code-gnu-global)
 
 ![](images/vscode.png)    
@@ -210,7 +210,7 @@ Wird der Spieler erschossen, wird die Map wieder zur Menü-Map geändert: Das Sp
 
 ### Die Map
 
-Die eigentliche Spielfläche bzw. das Terrain haben wir mit dem Landscape-Tool der UnrealEngine erstellt ([mehr im Stundenblog](README.md)).  
+Die eigentliche Spielfläche bzw. das Terrain haben wir mit dem Landscape-Tool der UnrealEngine erstellt ([mehr im Stundenblog](README.md#22-august)).  
 Das Level `World` ist unsere Karte. Dieses Level ist aus kleineren Levels zusammengesetzt. Im Sublevel `Root` befindet sich die Skybox, die Lichtquellen und ein paar Post-Processing Effektquellen wie z.B. für den Nebel. `WaterPlate` enthält ein einzelnes planares Static-Mesh mit unserem Ozean-Material. `Root` und `WaterPlate` sind über den vollständigen Aufenthalt im `World`-Level geladen.
 Die eigentliche Umgebung mit den Städten und Wäldern ist in 4 Level aufgeteilt haben, die wir `MM`, `MN`, `NM` und `NN` genannt haben.
 Der erste Buchstabe ist der x-Index des Levels und der zweite der y-Index. Wir haben Buchstaben genommen um mit kürzeren Namen eine größere Map erstellen zu können (26² anstatt 10² Maps bei einem Index pro Achse). Darüber hinaus haben wir nicht bei `A` angefangen, damit wir ggf. noch Maps nach vorne einschieben können, ohne negative Indizes zu verwenden oder alle Sublevel umbenennen zu müssen.
