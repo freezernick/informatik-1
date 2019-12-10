@@ -63,14 +63,6 @@ Obwohl man in der UnrealEngine das User-Interface auch mit C++ und dem Slate-Sys
 ## UnrealEngine 4 spezifisches C++
 Im folgenden werden die neuen C++-Features der UnrealEngine beispielhaft erklärt, die für unseren Code relevant sind. So werden zum Teil nicht alle möglichen oder verwendeten Bezeicher aufgeführt. Eine vollständige Liste wird jedoch verlinkt.
 
-### Variablen
----
-Die UnrealEngine definiert einige Variablentypen, die über das standardmäßige C++ hinausgehen.
-Hier ist eine Liste mit Variablen, die wir auch innerhalb unseres C++-Codes direkt oder indirekt verwendet haben.
-- FVector[^4], ein dreidimensionaler Vektor
-- FRotator[^5], ein Container, der die Rotation aller Achsen in Grad speichert
-- FText[^6], ein alternativer String
-
 ### Makros
 ---
 Alle folgenden Makros sind für das Reflection-System der Unreal Engine.
