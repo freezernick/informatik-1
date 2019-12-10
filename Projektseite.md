@@ -173,7 +173,8 @@ Die Engine ist dabei auch eine eigene Entwicklungsumgebung für Blueprints. Für
 ### 3D-Modellierung
 Für Modelle, die wir nicht innerhalb der Engine mit C++ oder Geometry-Brushes erstellen, verwenden wir [3ds-Max von Autodesk](https://www.autodesk.de/products/3ds-max/overview)
 
-TODO: Bild
+![](images/3dsmax.png)   
+*3DS Max mit den Meshes für den BuildingSpawner*   
 
 ## Das Projekt
 
