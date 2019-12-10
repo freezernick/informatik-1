@@ -176,7 +176,7 @@ Für Modelle, die wir nicht innerhalb der Engine mit C++ oder Geometry-Brushes e
 ![](images/3dsmax.png)   
 *3ds Max mit den Meshes für den BuildingSpawner*   
 
-## Das Projekt
+## Das Spiel
 
 ## Spielprinzip
 
