@@ -29,7 +29,7 @@ Darüberhinaus lassen sich wie in C++ eigene Variablen, Funktionen und Makros er
 
 Für gewisse Features der Engine gibt es eigene Blueprintformen. Teilweise muss dabei auf Blueprints zurückgegriffen werden und C++ ist keine Option. Diese Formen werden hier einmal dargestellt. 
 
-### Animation Blueprints
+#### Animation Blueprints
 
 Animation Blueprints steuern die komplexeren Animationen für Skeletal Meshes. Man kann zwar auch einzelne Animationen mit C++ oder Blueprints abspielen lassen, aber Anstatt in einem normalen Blueprint Animationen einzeln abspielen zu lassen, können wir in einem Animation Blueprint komplexere Zusammenhänge zwischen Animationen herstellen und auch verschiedene Animationen parallel abspielen, also überblenden.
 Dazu gibt es eine eigene Graph-Variante, in der man die verschiedenen Animation-States multilateral miteinander verbinden kann und zusätzlich die Bedingungen festlegen kann, wann die States gewechselt werden können.
@@ -37,7 +37,7 @@ Zudem können wir einige Eigenschaften der Animation an Variablen knüpfen, die 
 ![image](images/59185e19724f5d4989bb3f0b13b32f77/image.png)    
 *Ausschnitt aus dem Animation-Blueprint des SurvislandCharacters*
 
-### Material Blueprints
+#### Material Blueprints
 
 Material Blueprints werden dafür eingesetzt, um die Eigenschaften eines Materials zu bestimmen. Mithilfe von Materials kann man beeinflussen, wie die Engine Objekte rendert. 
 Es sind nicht alle Nodes der Engine in einem Material Blueprint Graph vorhanden, sondern  nur eine kleinere Anzahl an Nodes, die sich ausschließlich um das Rendering drehen.   
@@ -49,7 +49,7 @@ Der Vorteil der Verwendung von Material Instances liegt darin, dass sich alle In
 ![image](images/a244b958334f45173db6b9dd909c96b5/image.png)     
 *Unser Master-Material (links) und eine Material Instance für unser RoadTool (rechts)*
 
-### Widget Blueprints
+#### Widget Blueprints
 
 
 Obwohl man in der UnrealEngine das User-Interface auch mit C++ und dem Slate-System programmieren könnte, wird im Regelfall auf die Widget-Blueprints zurückgegriffen. Auch hier lassen sich Parents (ohne Design) in C++ erstellen. Im Widget-Blueprint-Editor wird dann lediglich das Design mit dem UnrealMotionGraphics-System erstellt. Das hat den Vorteil, dass UI-Designer nicht programmieren können müssen. Das UMG-System eine große vorgefertigte Anzahl an Bedien- und Gestaltungselementen, die sich frei anordnen und gestalten lassen. Es lassen sich auch jederzeit neue Elemente erstellen.
