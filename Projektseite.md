@@ -38,33 +38,33 @@ Zudem können wir einige Eigenschaften der Animation an Variablen knüpfen, die 
 *Ausschnitt aus dem Animation-Blueprint des SurvislandCharacters*
 
 ### Material Blueprints
----
+
 Material Blueprints werden dafür eingesetzt, um die Eigenschaften eines Materials zu bestimmen. Mithilfe von Materials kann man beeinflussen, wie die Engine Objekte rendert. 
-Es sind nicht alle Nodes in einem Material Blueprint Graph vorhanden, sondern  nur eine kleinere Anzahl an Nodes, die ausschließlich Parameter des Materials beeinflussen können.   
+Es sind nicht alle Nodes der Engine in einem Material Blueprint Graph vorhanden, sondern  nur eine kleinere Anzahl an Nodes, die sich ausschließlich um das Rendering drehen.   
 ![image](images/47d0767ff7973d5d809b44a4e036a339/image.png)    
 *Unser Landscape-Material*
 
-Material Blueprints haben eine ganz eigene Art von Child-Klassen: die sogenannten Material Instances. Die Instances haben allerdings keinen eigenen Graphen, sondern lediglich eine Oberfläche in der man die im Parent markierten Parameter verändern kann.
+Material Blueprints haben eine ganz eigene Art von Child-Klassen: die sogenannten Material Instances. Die Instances besitzen keinen eigenen Graphen, sondern lediglich eine Oberfläche in der man die im Parent markierten Parameter verändern kann.
 Der Vorteil der Verwendung von Material Instances liegt darin, dass sich alle Instances mit ihrem Parent einen einzigen Shader teilen und man somit weniger Arbeitsspeicher verbraucht. Darüber hinaus müssen wir nicht bei einer einzigen Farbänderung den Shader rekompilieren und können somit effizienter Arbeiten.   
 ![image](images/a244b958334f45173db6b9dd909c96b5/image.png)     
 *Unser Master-Material (links) und eine Material Instance für unser RoadTool (rechts)*
 
 ### Widget Blueprints
----
 
-Obwohl man in der UnrealEngine das User-Interface auch mit C++ und dem Slate-System programmieren könnte, wird im Regelfall auf die Widget-Blueprints zurückgegriffen. Auch hier lassen sich Parents (ohne Design) in C++ erstellen. Im Widget-Blueprint-Editor wird dann lediglich das Design mit dem UnrealMotionGraphics-System erstellt. Das hat den Vorteil, dass UI-Designer nicht programmieren könnenn müssen. Das UMG-System eine große vorgefertigte Anzahl an Bedien- und Gestaltungselementen, die sich frei anordnen und gestalten lassen. Es lassen sich auch jederzeit neue Elemente erstellen.
+
+Obwohl man in der UnrealEngine das User-Interface auch mit C++ und dem Slate-System programmieren könnte, wird im Regelfall auf die Widget-Blueprints zurückgegriffen. Auch hier lassen sich Parents (ohne Design) in C++ erstellen. Im Widget-Blueprint-Editor wird dann lediglich das Design mit dem UnrealMotionGraphics-System erstellt. Das hat den Vorteil, dass UI-Designer nicht programmieren können müssen. Das UMG-System eine große vorgefertigte Anzahl an Bedien- und Gestaltungselementen, die sich frei anordnen und gestalten lassen. Es lassen sich auch jederzeit neue Elemente erstellen.
 
 ## UnrealEngine 4 spezifisches C++
 Im folgenden werden die neuen C++-Features der UnrealEngine beispielhaft erklärt, die für unseren Code relevant sind. So werden zum Teil nicht alle möglichen oder verwendeten Bezeicher aufgeführt. Eine vollständige Liste wird jedoch verlinkt.
 
 ### Makros
----
+
 Alle folgenden Makros sind für das Reflection-System der Unreal Engine.
 Das UnrealHeaderTool[^2] scannt alle Header-Dateien nach diesen Makros und generiert eine `.generated.h` für jede `.h`. Mithilfe dieser Header-Datei kann die Engine den Klassen, Funktion oder Variablen, die mit diesen Makros markiert sind, erweiterte Funktionen zur Verfügung stellen.
 Für uns ist die Möglichkeit des Zugriffs auf in C++ deklarierten Variablen und Funktionen innnerhalb eines Blueprints am wichtigsten. Außerdem ist die Garbage Collection für uns von Bedeutung, da sie für uns ein Großteil des Memory-Managements abnimmt.
 
 #### UPROPERTY
----
+
 ```c++
 UPROPERTY(BlueprintReadWrite)
 bool bIsBlueprintExposed;
@@ -78,7 +78,7 @@ Eine vollständige Liste kann hier gefunden werden: https://docs.unrealengine.co
 Zusätzlich gibt es für `UPROPERTYs` Bezeichner für Metadaten: https://docs.unrealengine.com/en-US/Programming/UnrealArchitecture/Reference/Properties/#metadataspecifiers
 
 #### UFUNCTION
----
+
 ```c++
 UFUNCTION(BlueprintPure)
 int32 GenerateSomeInt();
@@ -93,7 +93,7 @@ Auch für `UFUNCTIONs` gibt es Metadaten-Bezeichner: https://docs.unrealengine.c
 ![image](images/4efaf3f3b6f9dde7b00d71104c9f064f/image.png)
 
 #### USTRUCT
----
+
 ```c++
 USTRUCT(BlueprintType)
 struct FMyStruct
@@ -107,7 +107,7 @@ Das `USTRUCT`-Makro wird für Structs verwendet, die wir innerhalb der Engine ve
 ![image](images/bef43952f025f68f86cd6b2f7d1f83e9/image.png)
 
 #### UENUM
----
+
 ```c++
 UENUM(BlueprintType)
 enum class EMyEnum : uint8
@@ -123,7 +123,7 @@ Hier gibt es eine vollständige Liste an Möglichkeiten: https://docs.unrealengi
 ![image](images/9d66704989fffb96660f0791d71d9013/image.png)
 
 #### UCLASS
----
+
 ```c++
 UCLASS(Blueprintable)
 class UMyClass : public UObject
@@ -139,11 +139,11 @@ Alle Bezeichner: https://docs.unrealengine.com/en-US/Programming/UnrealArchitect
 Alle Bezeichner für Metadaten: https://docs.unrealengine.com/en-US/Programming/UnrealArchitecture/Reference/Classes/Specifiers/#metadataspecifiers
 
 #### GENERATED_BODY()
----
+
 Wie auch in einigen der oberen Beispiele schon gezeigt wurde, gibt es noch ein `GENERATED_BODY`-Makro. Dieses fügt lediglich von der Engine vorgegebenen Standardcode ein.
 
 ### Build.cs & Target.cs Dateien
----
+
 Die UnrealEngine ist modular aufgebaut. Das heißt, dass der Code in viele verschiedene Teilbereiche aufgeteilt ist. Jedes Spiel oder auch Plugin, das in bzw. für die UnrealEngine erstellt wird, kann ebenfalls mehrere Module enthalten. Jedes Modul braucht eine eigene Build.cs-Datei für das UnrealBuildTool[^3].
 In diesen Build.cs-Dateien werden sowohl die Ordner, die zum Modul gehören, aufgelistet, als auch die Abhängigkeiten des Moduls von anderen Modulen aufgeführt, damit später die richtigen DLLs und Moduldateien vom Compiler verlinkt werden können.
 Wir verwenden allerdings nur ein einziges Modul in unserem Projekt, importieren dafür einige Funktionen aus Engine-Modulen. [Hier ist die Build.cs von unserem Survisland-Modul.](https://gitlab.com/f2p-entertainment/other/informatik-projekte/informatik-projekt-1/blob/f29d269df3466cdb0bf1bca71eb5405a06eef39f/Source/Survisland/Survisland.Build.cs)
