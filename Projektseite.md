@@ -1,19 +1,12 @@
 Informatik-Projekt von Jakob Wagner und Nick Lamprecht    
 12g - 19/20 Stormarnschule Ahrensburg
 
-TODO: Link / Erklärung Plugins
-
-- [Modular Snap System](https://www.unrealengine.com/marketplace/en-US/slug/modular-snap-system)
-- [Save Extension](https://www.unrealengine.com/marketplace/en-US/slug/save-extension)
-
-
-
 
 ## Umsetzung
 
-Anstatt für unser Projekt von Grund auf anzufangen, verwenden wir eine Game-Engine. Engines gibt es für 2D und 3D-Spiele und bieten in der Regel bereits die Implementierung einer oder mehrerer Rendering-Schnittstellen wie OpenGL oder DirectX, ein Sound- und Physiksystem. Darüberhinaus haben Engines, wenn man sie mit einer Objektorientierten Sprache verwenden kann, bereits eine vergleichsweise große Struktur an Klassen, die man dann für seine Projekte verwenden und erweitern kann.
+Anstatt für unser Projekt von Grund auf anzufangen, verwenden wir eine Game-Engine. Engines gibt es für 2D und 3D-Spiele und bieten in der Regel bereits die Implementierung einer oder mehrerer Rendering-Schnittstellen wie OpenGL oder DirectX, ein Sound- und ein Physiksystem. Darüberhinaus haben Engines, wenn man sie mit einer Objektorientierten Sprache verwenden kann, bereits eine vergleichsweise ausgefeilte Struktur an Klassen, die man dann für seine Projekte verwenden und erweitern kann.
 
-Wir verwenden die [UnrealEngine 4](https://www.unrealengine.com/en-US/what-is-unreal-engine-4) (in der Version 4.23). Man kann die Gameplayprogrammierung in C++ und der visuellen Programmiersprache der Blueprints durchführen. Dabei kann man beides verwenden, da sich beide Möglichkeiten ergänzen.
+Wir verwenden die [UnrealEngine 4](https://www.unrealengine.com/en-US/what-is-unreal-engine-4) (in der Version 4.23). Man kann die Gameplayprogrammierung in C++ und der visuellen Programmiersprache der Blueprints durchführen. Beides lässt sich dabei ergänzend verwenden. Darüberhinaus lassen sich Skripte für die Verwendung innerhalb des Editors in Blueprints und Python schreiben.
 
 <details>
 
@@ -28,16 +21,17 @@ Im folgenden Diagramm werden die Möglichkeiten der komplementären Verwendung v
 Blueprints verhalten sich im Prinzip wie die meisten anderen visuellen Programmiersprachen. Es gibt Code-Blöcke, die sogenannten Nodes, die sich mit dem Execution-Pin (weiß) verbinden lassen. Startpunkt für eine Node-Kette innerhalb eines Blueprint sind die Events, die entweder von anderen Blueprints, der Engine selbst oder einer C++-Klasse ausgelöst werden können. Jedes Event hat einen Execution Pin und kann zusätzlich über Input Values verfügen.
 Außer dem Execution Pin kann man noch alle Output- und Input-Pins miteinander verbinden. Durch die verschiedenen Farben der Variablentypen[^1] lässt sich leicht die Übersicht behalten.
 Darüberhinaus lassen sich wie in C++ eigene Variablen, Funktionen und Makros erstellen.   
+
 ![image](images/84b3d2a31690f70c497f95b1cd00b8bc/image.png)    
-*Beispielhafter einfacher Blueprint-Graph*
+*Beispielhafter einfacher Blueprint-Graph*   
 
 ### Sonderformen
 
-Für gewisse Features gibt es eigene Blueprintformen. 
+Für gewisse Features der Engine gibt es eigene Blueprintformen. Teilweise muss dabei auf Blueprints zurückgegriffen werden und C++ ist keine Option. Diese Formen werden hier einmal dargestellt. 
 
 ### Animation Blueprints
----
-Animation Blueprints steuern die Animationen für Skeletal Meshes[^7]. Anstatt in einem normalen Blueprint Animationen einzeln abspielen zu lassen, können wir in einem Animation Blueprint komplexere Zusammenhänge zwischen Animationen herstellen und auch verschiedene Animationen parallel abspielen, also überblenden.
+
+Animation Blueprints steuern die komplexeren Animationen für Skeletal Meshes. Man kann zwar auch einzelne Animationen mit C++ oder Blueprints abspielen lassen, aber Anstatt in einem normalen Blueprint Animationen einzeln abspielen zu lassen, können wir in einem Animation Blueprint komplexere Zusammenhänge zwischen Animationen herstellen und auch verschiedene Animationen parallel abspielen, also überblenden.
 Dazu gibt es eine eigene Graph-Variante, in der man die verschiedenen Animation-States multilateral miteinander verbinden kann und zusätzlich die Bedingungen festlegen kann, wann die States gewechselt werden können.
 Zudem können wir einige Eigenschaften der Animation an Variablen knüpfen, die Laufgeschwindigkeit des Spielers als Beispiel.   
 ![image](images/59185e19724f5d4989bb3f0b13b32f77/image.png)    
@@ -169,6 +163,20 @@ Die Engine ist dabei auch eine eigene Entwicklungsumgebung für Blueprints. Für
 
 ![](images/vscode.png)    
 *Visual Studio Code mit der geöffneten [BuildingSpawner.cpp](Source/Survisland/Decoration/BuildingSpawner.cpp)*   
+
+
+#### Plugins
+
+Wir verwenden für unser Projekt zwei Plugins:   
+
+1. Das [Save Extension Plugin](https://www.unrealengine.com/marketplace/en-US/slug/save-extension) von Piperift. Das Plugin verwendet das Serialization-System der Engine um alle Werte, die in einem konfigurierbaren Preset eingestellt wurden, automatisch abzuspeichern. Aufgrund der Größe der Map und der großen Anzahl an Objekten und Variablen bietet sich die Verwendung eines solchen Systems an.
+
+![](images/preset.png)   
+*Unser Save-Preset in der UnrealEngine*   
+
+2. Das [Modular Snap System](https://www.unrealengine.com/marketplace/en-US/slug/modular-snap-system) Plugin von Inu Games. Mit diesem Plugin lassen sich Static Meshes mithilfe von Sockets und Splines mit ihren Spline-Points aneinander heften. Das ist deshalb hilfreich, weil das Snapping-System der UnrealEngine auf dem (für den Spieler unsichtbaren) Gitternetz basiert, das die Spielwelt durchzieht. 
+
+TODO: Transform Grafik Spline Snapping
 
 ### 3D-Modellierung
 Für Modelle, die wir nicht innerhalb der Engine mit C++ oder Geometry-Brushes erstellen, verwenden wir [3ds Max von Autodesk](https://www.autodesk.de/products/3ds-max/overview). 3ds Max ist ein vergleichsweise komplexes 3D-Modellierungs- und Animationsprogramm. Für die simplen Modelle, die wir in unserem Spiel verwenden, brauchen wir lediglich die Polygonmodellierung. In unserem Fall reicht es, wenn wir mehrere einfache Körper (z.B. Quader) miteinander verbinden.
@@ -321,7 +329,9 @@ Da wir keine Effekte oder ähnliches beim Schießen anzeigen, benutzen wir eine 
 ![](images/showcase/fight.gif)   
 *Ein Kampf*   
 
-## Weiteres
+## Weiteres 
+
+TODO: Transform Grafik Spline Snapping
 
 ### Steuerung
 
