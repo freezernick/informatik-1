@@ -201,7 +201,7 @@ Wenn das Spiel gestartet wird, öffnet sich zuallererst ein kleines Level, in de
 
 
 Wird das Spiel nun gestartet, wird das eigentliche Level geladen. Wenn die Map fertig geladen ist, geht es direkt los:
-Die Timer für Items, NPCs und Spielerwerte starten sofort. Nun kann der Spieler sich frei bewegen, um die Gegend zu erkunden und sich auf die Suche nach Items zu machen. Die meisten Items können in den Städten gefunden werden (s. [Konzepterläuterungen](https://gitlab.com/f2p-entertainment/other/informatik-projekte/survisland/survisland/wikis/Konzepterkl%C3%A4rung#regionen)). Standardmäßig spawnt der Spieler in der Nähe einer Stadt, damit er sich ein anfängliches Loadout zusammensammeln kann. Wenn die Items der Stadt gesammelt sind, muss sich der Spieler zur nächsten Stadt begeben, die gerade noch am Horizont über den Wäldern erkannt werden kann.
+Die Timer für Items, NPCs und Spielerwerte starten sofort. Nun kann der Spieler sich frei bewegen, um die Gegend zu erkunden und sich auf die Suche nach Items zu machen. Die meisten Items können in den Städten gefunden werden (s. [Konzepterläuterungen](Konzepterkl%C3%A4rung.md#regionen)). Standardmäßig spawnt der Spieler in der Nähe einer Stadt, damit er sich ein anfängliches Loadout zusammensammeln kann. Wenn die Items der Stadt gesammelt sind, muss sich der Spieler zur nächsten Stadt begeben, die gerade noch am Horizont über den Wäldern erkannt werden kann.
 
 Sowohl auf dem Weg als auch in den Städten trifft der Spieler dabei auf NPCs. Alle NPCs sind ebenso wie der Spieler bewaffnet. Befindet sich der Spieler in Sichtweite, bricht der NPC sofort seinen aktuellen Plan ab und nimmt die Verfolgung auf. Sobald sich der NPC in Schussweite gebracht hat, feuert er auf den Spieler bis dieser entweder außer Reichweite ist, oder einer der beiden Duellanten keine Hitpoints mehr hat.
 Wird der Spieler erschossen, wird die Map wieder zur Menü-Map geändert: Das Spiel ist vorbei.
@@ -210,7 +210,7 @@ Wird der Spieler erschossen, wird die Map wieder zur Menü-Map geändert: Das Sp
 
 ### Die Map
 
-Die eigentliche Spielfläche bzw. das Terrain haben wir mit dem Landscape-Tool der UnrealEngine erstellt ([mehr im Stundenblog](https://gitlab.com/f2p-entertainment/other/informatik-projekte/survisland/survisland#stundenlog)).  
+Die eigentliche Spielfläche bzw. das Terrain haben wir mit dem Landscape-Tool der UnrealEngine erstellt ([mehr im Stundenblog](README.md)).  
 Das Level `World` ist unsere Karte. Dieses Level ist aus kleineren Levels zusammengesetzt. Im Sublevel `Root` befindet sich die Skybox, die Lichtquellen und ein paar Post-Processing Effektquellen wie z.B. für den Nebel. `WaterPlate` enthält ein einzelnes planares Static-Mesh mit unserem Ozean-Material. `Root` und `WaterPlate` sind über den vollständigen Aufenthalt im `World`-Level geladen.
 Die eigentliche Umgebung mit den Städten und Wäldern ist in 4 Level aufgeteilt haben, die wir `MM`, `MN`, `NM` und `NN` genannt haben.
 Der erste Buchstabe ist der x-Index des Levels und der zweite der y-Index. Wir haben Buchstaben genommen um mit kürzeren Namen eine größere Map erstellen zu können (26² anstatt 10² Maps bei einem Index pro Achse). Darüber hinaus haben wir nicht bei `A` angefangen, damit wir ggf. noch Maps nach vorne einschieben können, ohne negative Indizes zu verwenden oder alle Sublevel umbenennen zu müssen.
