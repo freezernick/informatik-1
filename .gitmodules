@@ -1,3 +1,6 @@
 [submodule "Plugins/GitLabBugReporter"]
 	path = Plugins/GitLabBugReporter
 	url = git@gitlab.com:f2p-entertainment/plugins/ue4/gitlab-bug-reporter.git
+[submodule "Plugins/CommonNodes"]
+	path = Plugins/CommonNodes
+	url = git@gitlab.com:f2p-entertainment/plugins/ue4/common-nodes.git
