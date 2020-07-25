@@ -1,3 +1,6 @@
 [submodule "Plugins/GitLabBugReporter"]
 	path = Plugins/GitLabBugReporter
 	url = git@gitlab.com:f2p-entertainment/plugins/ue4/gitlab-bug-reporter.git
+[submodule "Plugins/SaveExtension"]
+	path = Plugins/SaveExtension
+	url = git@github.com:PipeRift/SaveExtension.git
