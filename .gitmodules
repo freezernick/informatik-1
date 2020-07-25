@@ -4,3 +4,6 @@
 [submodule "Plugins/SaveExtension"]
 	path = Plugins/SaveExtension
 	url = git@github.com:PipeRift/SaveExtension.git
+[submodule "Plugins/CommonNodes"]
+	path = Plugins/CommonNodes
+	url = git@gitlab.com:f2p-entertainment/plugins/ue4/common-nodes.git
